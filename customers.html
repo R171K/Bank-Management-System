@@ -207,6 +207,59 @@
         </div>
     </div>
 
+  <!-- Modal transaction History-->
+  <div class="modal fade" id="transactionHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- ... -->
+        </div>
+        <div class="modal-body">
+          <ol id="transaction-history-body">
+            <!-- Transaction history items will be dynamically added here -->
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <!-- ... -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ... -->
+
+  <script src="assets/js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
+  <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
+
+  <script>
+    function calculateTransactionStats() {
+      // Retrieve the transaction history from the modal body
+      const transactionHistory = document.getElementById('transaction-history-body');
+      const transactions = transactionHistory.getElementsByTagName('li');
+
+      // Calculate basic statistics
+      const totalTransactions = transactions.length;
+      let totalAmount = 0;
+
+      for (let i = 0; i < totalTransactions; i++) {
+        const transaction = transactions[i];
+        const amount = parseFloat(transaction.dataset.amount);
+        totalAmount += amount;
+      }
+
+      const averageAmount = totalAmount / totalTransactions;
+
+      // Display the statistics in the modal footer
+      const modalFooter = document.querySelector('#transactionHistory .modal-footer');
+      const statsParagraph = document.createElement('p');
+      statsParagraph.innerHTML = `Total Transactions: ${totalTransactions} | Total Amount: $${totalAmount.toFixed(2)} | Average Amount: $${averageAmount.toFixed(2)}`;
+      modalFooter.prepend(statsParagraph);
+    }
+  </script>
+
     <script src="assets/js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
